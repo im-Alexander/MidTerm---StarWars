@@ -11,7 +11,6 @@ public class Boundary {
 	public float xMin, xMax, yMin, yMax;
 }
 
-
 public class EnemyController : MonoBehaviour {
 	// PUBLIC INSTANCE VARIABLES
 	public Speed speed;
@@ -21,10 +20,16 @@ public class EnemyController : MonoBehaviour {
 	private float _CurrentSpeed;
 	private float _CurrentDrift;
 
-	// Use this for initialization
-	void Start () {
+    //Instantiate the game controller
+    private GameController controller;
+
+    // Use this for initialization
+    void Start () {
 		this._Reset ();
-	}
+        
+        //To control the GameController Script
+        controller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -35,7 +40,8 @@ public class EnemyController : MonoBehaviour {
 		// Check bottom boundary
 		if (currentPosition.y <= boundary.yMin) {
 			this._Reset();
-		}
+            controller.IncreaseScore(10);
+        }
 	}
 
 	// resets the gameObject
